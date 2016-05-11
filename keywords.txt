@@ -1,0 +1,13 @@
+robOStique	KEYWORD3
+
+UltrasonicSensor	KEYWORD1
+microsecondsToCentimeters	KEYWORD2
+senseUS_prox	KEYWORD2
+senseUS_dist	KEYWORD2
+isNear	KEYWORD2
+
+MotorControl	KEYWORD1
+applySpeed	KEYWORD2
+
+SevenBitDisplay KEYWORD1
+display	KEYWORD2
