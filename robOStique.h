@@ -64,8 +64,11 @@ class SevenBitDisplay
 		~SevenBitDisplay();
 	
 		void display(byte symbole);
+		//void displayDec(int symbole);
+		int* displayDec(byte symbole, bool floatval=false);
 
 	private :
+		int pins[8];
 		int pin1;
 		int pin2;
 		int pin3;

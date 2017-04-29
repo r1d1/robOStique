@@ -9,6 +9,7 @@
 
 #include "Sensors.h"
 
+using namespace robOStique;
 // ===== Sensors Classes =====
 
 // ---- Distance Sensing ----

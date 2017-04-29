@@ -172,14 +172,14 @@ SevenBitDisplay::SevenBitDisplay(){}
 
 SevenBitDisplay::SevenBitDisplay(int b1, int b2, int b3, int b4, int b5, int b6, int b7, int b8)
 {
-	pin1 = b1;
-	pin2 = b2;
-	pin3 = b3;
-	pin4 = b4;
-	pin5 = b5;
-	pin6 = b6;
-	pin7 = b7;
-	pin8 = b8;
+	pins[0] = pin1 = b1;
+	pins[1] = pin2 = b2;
+	pins[2] = pin3 = b3;
+	pins[3] = pin4 = b4;
+	pins[4] = pin5 = b5;
+	pins[5] = pin6 = b6;
+	pins[6] = pin7 = b7;
+	pins[7] = pin8 = b8;
 }
 
 void SevenBitDisplay::display(byte symbol)
@@ -192,6 +192,50 @@ void SevenBitDisplay::display(byte symbol)
   digitalWrite(pin3, symbol & B00100000);
   digitalWrite(pin2, symbol & B01000000);
   digitalWrite(pin1, symbol & B10000000);
+}
+
+int *SevenBitDisplay::displayDec(byte val, bool floatval)
+{
+  int lights[8]={0,0,0,0,0,0,0,0};
+
+  switch(val)
+  {
+	case 0:
+		lights[2] = lights[1] = lights[4] = lights[5] = lights[3] = lights[6] = 1;
+	break;
+	case 1:
+		lights[3] = lights[6] = 1;
+	break;
+	case 2:
+		lights[2] = lights[3] = lights[0] = lights[4] = lights[5] = 1;
+	break;
+	case 3:
+		lights[0] = lights[2] = lights[3] = lights[6] = lights[5] = 1;
+	break;
+	case 4:
+		lights[1] = lights[0] = lights[3] = lights[6] = 1;
+	break;
+	case 5:
+		lights[1] = lights[2] = lights[0] = lights[6] = lights[5] = 1;
+	break;
+	case 6:
+		lights[1] = lights[2] = lights[0] = lights[4] = lights[5] = lights[6] = 1;
+	break;
+	case 7:
+		lights[2] = lights[3] = lights[6] = 1;
+	break;
+	case 8:
+		lights[0] = lights[1] = lights[2] = lights[3] = lights[4] = lights[5] = lights[6] = lights[7] = 1;
+	break;
+	case 9:
+		lights[0] = lights[1] = lights[2] = lights[3] = lights[5] = lights[6] = 1;
+	break;
+	default:
+	break;
+   }
+   if(floatval==true){ lights[7] =1; }
+
+   for(int i=0; i<8 ; i++){ digitalWrite(pins[i], lights[i]); }
 }
 
 SevenBitDisplay::~SevenBitDisplay(){}

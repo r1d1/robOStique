@@ -20,7 +20,7 @@ class UltrasonicSensor
 {
 	public :
 		UltrasonicSensor();
-//		UltrasonicSensor(const int pinToSet);
+		UltrasonicSensor(const int pinToSet);
 		UltrasonicSensor(const int pinToSet, float maxSensingDistance);
 		~UltrasonicSensor();
 
