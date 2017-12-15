@@ -2,7 +2,7 @@
  *  robOStique.cpp
  *  
  *
- *  Created by R1M@ster on 28/06/2012.
+ *  Created by R1D1 on 28/06/2012.
  *  Copyright 2012 __MyCompanyName__. All rights reserved.
  *
  * Modified on 22/02/2013
