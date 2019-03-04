@@ -8,6 +8,8 @@
  *
  */
 
+#ifndef SENSOR_H
+#define SENSOR_H
 #include "Arduino.h"
 
 namespace robOStique
@@ -20,8 +22,7 @@ class UltrasonicSensor
 {
 	public :
 		UltrasonicSensor();
-		UltrasonicSensor(const int pinToSet);
-		UltrasonicSensor(const int pinToSet, float maxSensingDistance);
+		UltrasonicSensor(const int echo_pin, const int trigger_pin, float maxSensingDistance);
 		~UltrasonicSensor();
 
 		float microsecondsToCentimeters(float microseconds);
@@ -31,8 +32,11 @@ class UltrasonicSensor
 		bool isNear_dist(float border);
 		
 	private :
-		int pin_;
-		int maxDist_;
+		int echo_pin_;
+		int trigger_pin_;
+		int max_dist_;
 };
 
 }
+
+#endif

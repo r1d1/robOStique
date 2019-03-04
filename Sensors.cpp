@@ -14,16 +14,23 @@ using namespace robOStique;
 
 // ---- Distance Sensing ----
 
+
 // UltrasonicSensor
+// PING or HCSR04
+// Main difference is the nb of pins and how to control them
+// but interface should be the same
 UltrasonicSensor::UltrasonicSensor(){}
 
-UltrasonicSensor::UltrasonicSensor(const int pinToSet, float maxSensingDistance = 400.0)
+UltrasonicSensor::UltrasonicSensor(const int echo_pin, const int trigger_pin, float max_sensing_distance = 400.0)
 {
-	pin_ = pinToSet;
-	maxDist_ = maxSensingDistance;
+	echo_pin_ = echo_pin;
+	trigger_pin_ = trigger_pin;
+	max_dist_ = max_sensing_distance;
 }
 			
-UltrasonicSensor::UltrasonicSensor(const int pinToSet){ pin_ = pinToSet; }
+//UltrasonicSensor::UltrasonicSensor(const int pinToSet){ pin_ = pinToSet; }
+
+UltrasonicSensor::~UltrasonicSensor(){}
 
 float UltrasonicSensor::microsecondsToCentimeters(float microseconds)
 {
@@ -31,7 +38,7 @@ float UltrasonicSensor::microsecondsToCentimeters(float microseconds)
 	// The ping travels out and back, so to find the distance of the
 	// object we take half of the distance travelled.
 	float value = microseconds / 29.0 / 2.0;
-	value =  (value > maxDist_) ? maxDist_ : value;
+	value =  (value > max_dist_) ? max_dist_ : value;
 	return value;
 }
 
@@ -41,21 +48,21 @@ float UltrasonicSensor::senseUS_prox()
 	float duration, prox;
 	// The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
 	// Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-	pinMode(pin_, OUTPUT);
-	digitalWrite(pin_, LOW);
+	pinMode(trigger_pin_, OUTPUT);
+	digitalWrite(trigger_pin_, LOW);
 	delayMicroseconds(2);
-	digitalWrite(pin_, HIGH);
+	digitalWrite(trigger_pin_, HIGH);
 	delayMicroseconds(5);
-	digitalWrite(pin_, LOW);
+	digitalWrite(trigger_pin_, LOW);
 
 	// The same pin is used to read the signal from the PING))): a HIGH
 	// pulse whose duration is the time (in microseconds) from the sending
 	// of the ping to the reception of its echo off of an object.
-	pinMode(pin_, INPUT);
-	duration = pulseIn(pin_, HIGH);
+	pinMode(echo_pin_, INPUT);
+	duration = pulseIn(echo_pin_, HIGH);
 
 	// convert the time into a linear proximity ratio
-	prox = 1.0 - microsecondsToCentimeters(duration) / maxDist_;
+	prox = 1.0 - microsecondsToCentimeters(duration) / max_dist_;
 
   return prox;
 }
@@ -66,18 +73,18 @@ float UltrasonicSensor::senseUS_dist()
 	float duration, cm;
 	// The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
 	// Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-	pinMode(pin_, OUTPUT);
-	digitalWrite(pin_, LOW);
+	pinMode(trigger_pin_, OUTPUT);
+	digitalWrite(trigger_pin_, LOW);
 	delayMicroseconds(2);
-	digitalWrite(pin_, HIGH);
+	digitalWrite(trigger_pin_, HIGH);
 	delayMicroseconds(5);
-	digitalWrite(pin_, LOW);
+	digitalWrite(trigger_pin_, LOW);
 
 	// The same pin is used to read the signal from the PING))): a HIGH
 	// pulse whose duration is the time (in microseconds) from the sending
 	// of the ping to the reception of its echo off of an object.
-	pinMode(pin_, INPUT);
-	duration = pulseIn(pin_, HIGH);
+	pinMode(echo_pin_, INPUT);
+	duration = pulseIn(echo_pin_, HIGH);
 
 	// convert the time into a distance
 	cm = microsecondsToCentimeters(duration);
