@@ -2,7 +2,7 @@
  *  robOStique.h
  *  
  *
- *  Created by R1M@ster on 28/06/12.
+ *  Created by R1D1 on 28/06/12.
  *  Copyright 2012 __MyCompanyName__. All rights reserved.
  *
  */

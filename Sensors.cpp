@@ -2,7 +2,7 @@
  *  Sensors.cpp
  *  
  *	Sensors from robOStique framework for Arduino
- *  Created by R1M@ster on 27/06/14.
+ *  Created by R1D1 on 27/06/14.
  *  Copyright 2014 __MyCompanyName__. All rights reserved.
  *
  */
